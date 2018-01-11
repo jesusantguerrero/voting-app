@@ -17,11 +17,11 @@ export default class LoginBox extends Component {
       <div className="dropdown-menu dropdown-menu-right" aria-labelledby="loginDropdown">
         <form className="px-4 py-3">
           <div className="form-group">
-            <label for="input-email">Email address</label>
+            <label htmlFor="input-email">Email address</label>
             <input type="email" className="form-control" id="input-email" data-state="email" placeholder="email@example.com" onChange={this.handleInput.bind(this)}/>
           </div>
           <div className="form-group">
-            <label for="input-password">Password</label>
+            <label htmlFor="input-password">Password</label>
             <input type="password" className="form-control" id="input-password" data-state="password" placeholder="Password" onChange={this.handleInput.bind(this)}/>
           </div>
           <button type="submit" className="btn btn-primary" onClick={this.login.bind(this)}>Sign in</button>
@@ -34,17 +34,15 @@ export default class LoginBox extends Component {
   }
 
   login(e) {
-    e.preventDeafault();
+    e.preventDefault();
     console.log(this.state.email);
-    console.log(this.state.username);
     console.log(this.state.password);
-    console.log(this.state.confirmPassword);
   }
 
   handleInput(e) {
     const state = {}
-    state[e.target.dataset.state] = e.value;
-    this.setState({...state});
+    state[e.target.dataset.state] = e.target.value;
+    this.setState(state);
   }
 
 }
