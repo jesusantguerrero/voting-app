@@ -27,6 +27,7 @@ export default class LoginBox extends Component {
           <button type="submit" className="btn btn-primary" onClick={this.login.bind(this)}>Sign in</button>
         </form>
         <div className="dropdown-divider"></div>
+        <a className="dropdown-item" href="/auth/twitter">Sign in with Twitter</a>
         <a className="dropdown-item" href="#">New around here? Sign up</a>
         <a className="dropdown-item" href="#">Forgot password?</a>
       </div>
