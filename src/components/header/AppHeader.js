@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Link } from 'react-router-dom';
 import HeaderLoginBox from './components/HeaderLoginBox';
 
 export default class AppHeader extends Component {
@@ -15,11 +16,11 @@ export default class AppHeader extends Component {
             
             
             <div className="collapse navbar-collapse" id="mainNavigation">
-              <div className="navbar-nav">
-                <a className="nav-item nav-link active" href="/">Home <span className="sr-only">(current)</span></a>
-                <a className="nav-item nav-link" href="/pools">Pools</a>
-                <a className="nav-item nav-link" href="/profile">Profile</a>
-              </div>
+              <nav className="navbar-nav">
+                <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
+                <Link className="nav-item nav-link" to="/pools">Pools</Link>
+                <Link className="nav-item nav-link" to="/profile">Profile</Link>
+              </nav>
             </div>
 
             <div className="navbar-nav mr mr-md-3">
@@ -35,4 +36,6 @@ export default class AppHeader extends Component {
       </div>
     )
   }
+
+  
 }
