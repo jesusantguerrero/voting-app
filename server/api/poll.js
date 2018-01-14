@@ -10,4 +10,4 @@ Router.get('/api/poll/deleteOption');
 
 
 
-export default Router;
+module.exports = Router;
