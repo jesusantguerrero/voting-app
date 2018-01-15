@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const session = require('express-session');
-
+const db = require('./server/models/db');
+const User = require('./server/models/User');
 require('dotenv').config();
 const passport = require('./server/passportProviders');
 
@@ -32,11 +33,12 @@ app.get('/auth/twitter/callback',
   }
 ));
 
-app.use('api/poll', Poll)
-
-app.get('/prueba', (req, res) => {
-  res.end('hello world');
+app.get('/current', (req, res) => {
+  res.json({ user: req.user });
 })
+
+app.use('/api/poll/', Poll)
+
 
 const listen = app.listen(process.env.PORT || 80 , () => {
   console.log(`listening port ${listen.address().port}`);

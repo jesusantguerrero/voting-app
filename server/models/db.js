@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const stringConn = 'mongodb://freesgen:samielfuerte@ds135966.mlab.com:35966/learnyoumongo'
+const stringConn = 'mongodb://127.0.0.1:27017/admin'
 
 mongoose.connect(stringConn, {
   useMongoClient: true

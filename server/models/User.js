@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 class User {
   constructor() {
     this.model = mongoose.model('User', new mongoose.Schema({
-      id: String,
+      id: mongoose.Schema.Types.String,
+      idProvider: String,
       provider: String,
       displayName: String,
       name: mongoose.Schema.Types.Mixed,
-      emails: mongoose.Types.Array(String),
-      photos: mongoose.Types.Array(String)
+      emails: mongoose.Schema.Types.Mixed,
+      photos: mongoose.Schema.Types.Mixed
     }));
   }
 
@@ -17,7 +18,7 @@ class User {
   }
 
   findOrCreate(user) {
-    const foundUser = this.model.findById(user.id);
+    const foundUser = this.model.find({ id : user.id });
     if (foundUser) {
       return foundUser
     }
