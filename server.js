@@ -8,6 +8,7 @@ require('dotenv').config();
 const passport = require('./server/passportProviders');
 
 const Poll = require('./server/api/poll');
+const Vote = require('./server/api/vote');
 
 
 app.use(express.static("build"));
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/build/index.html`)
 })
 
+//  authentication related
 app.get('/auth/twitter',
  passport.authenticate('twitter'));
 
@@ -37,7 +39,9 @@ app.get('/current', (req, res) => {
   res.json({ user: req.user });
 })
 
-app.use('/api/poll/', Poll)
+//  routes
+app.use('/api/poll', Poll);
+app.use('/api/vote', Vote);
 
 
 const listen = app.listen(process.env.PORT || 80 , () => {

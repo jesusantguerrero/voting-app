@@ -33,7 +33,7 @@ export default class PoolSection extends Component {
     e.preventDefault();
     const { title, options } = this.state;
     if (title && options) {
-      axios.post('/api/poll/create')
+      axios.post('/api/poll/create', this.state)
         .then((res) => {
           alert('saved');
         })

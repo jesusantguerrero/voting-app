@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Poll = mongoose.model('Poll', new mongoose.Schema({
   id: String,
   userId: String,
-  options: mongoose.Schema.Types.Array,
+  title: String,
+  options: mongoose.Schema.Types.Mixed,
   votes: mongoose.Schema.Types.Mixed,
 }));
 
