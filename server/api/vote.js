@@ -6,20 +6,23 @@ router.post('/:poll_id', (req, res) => {
   const ip = req.ips[0];
   const pollId = req.params.poll_id;
 
-  Poll.find({_id: pollId})
+  Poll.findById({_id: pollId})
     .then((poll) => {
-      res.json(poll);
-      // poll.votes.push({ ip: ip, option: req.body.option })
-      // addVote(id, poll.votes)
-      //   .then((res) => {
-      //     res.json(res);
-      //   })
+     const votes =  poll.votes.slice()
+     votes.push({ ip: ip, option: req.body.option })
+      
+      addVote(pollId, votes)
+        .then((poll) => {
+          console.log(votes)
+
+          res.json(poll);
+        })
     })
 
 });
 
 function addVote(id, votes) {
-  return Poll.findByIdAndUpdate({ _id: id}, votes)
+  return Poll.findOneAndUpdate({ _id: id}, { votes: votes })
 }
 
 
