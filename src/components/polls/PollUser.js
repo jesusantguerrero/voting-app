@@ -11,19 +11,19 @@ export default class HomeSection extends React.Component {
   }
 
   componentDidMount(){
-   this.getPolls();
+   this.getUserPolls();
   }
 
   render() {
     return(
       <div className="row justify-content-center">
-      <PollList polls={this.state.polls} owner={false} afterDelete={this.getPolls.bind(this)}/>
+      <PollList polls={this.state.polls} owner={true} afterDelete={this.getUserPolls.bind(this)}/>
     </div>
     )
   }
 
-  getPolls() {
-    axios.get('/api/poll/')
+  getUserPolls() {
+    axios.get(`/api/poll/user/${window.User.id}`)
     .then((res) => {
       this.setState({ polls: res.data })
     })

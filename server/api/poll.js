@@ -3,11 +3,12 @@ const Poll = require('./../models/Poll');
 
 router.post('/create', (req, res, next) => {
   const id = (req.user) ? req.user.id : 0;
+  const data = JSON.parse(req.body.data);
 
   const p = {
     userId: id,
-    title: req.body.title,
-    options: req.body.options.split(','),
+    title: data.title,
+    options: data.options.split(','),
     votes: [],
   }
 
@@ -34,8 +35,8 @@ router.get('/:id', (req, res) => {
 
 })
 
-router.get('/:id/edit', (req, res) => {
-  Poll.find({_id: req.params.id}).then((polls) => {
+router.get('/user/:id', (req, res) => {
+  Poll.find({userId: req.params.id}).then((polls) => {
     res.json(polls);
   });
 

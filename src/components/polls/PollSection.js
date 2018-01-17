@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import utils from './../generals/utils';
 
 export default class PollSection extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class PollSection extends Component {
           </div>
           <button className="btn btn-dark" onClick={this.save.bind(this)}> Save</button>
         </form>
-        { this.state.created && <PollCreatedView poll={this.state.poll}></PollCreatedView>}
+        { this.state.created && <PollCreatedView poll={this.state.poll}/>}
       </div>
     )
   }
@@ -34,10 +35,10 @@ export default class PollSection extends Component {
   save(e) {
     e.preventDefault();
     const { title, options } = this.state;
+    const data = utils.setAxiosData({ title, options});
+
     if (title && options) {
-      axios.post('/api/poll/create', { title, options }, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
-      })
+      axios.post('/api/poll/create', data )
         .then((res) => {
           alert('saved');
           this.setState({ created: true })
@@ -56,7 +57,7 @@ export default class PollSection extends Component {
 }
 
 function PollCreatedView(props) {
-  const theLink = `${window.location.origin}/poll/${this.props.poll._id}`;
+  const theLink = `${window.location.origin}/poll/${props.poll._id}`;
   return(
     <div>
       <h2>Congratulations, your poll is live</h2>

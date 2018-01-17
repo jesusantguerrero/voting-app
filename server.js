@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const session = require('express-session');
-const db = require('./server/models/db');
-const User = require('./server/models/User');
 require('dotenv').config();
+const User = require('./server/models/User');
+const db = require('./server/models/db');
 const passport = require('./server/passportProviders');
 
 const Poll = require('./server/api/poll');
@@ -23,8 +23,8 @@ app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/build/index.html`);
 })
 
-app.get('/poll/*', (req, res) => {
-  res.redirect('/');
+app.get('/p*', (req, res) => {
+  res.sendFile(`${__dirname}/build/index.html`);
 })
 
 //  authentication related

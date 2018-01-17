@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const stringConn = 'mongodb://127.0.0.1:27017/admin'
 
-mongoose.connect(stringConn, {
+mongoose.connect(process.env.DB_STRING_CONNECTION, {
   useMongoClient: true
 })
 

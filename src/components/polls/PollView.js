@@ -41,8 +41,8 @@ export default class PollView extends Component {
 
             <button className="btn btn-primary" onClick={this.vote.bind(this)}> Vote </button>
             </div>
-            <div class="tab-pane fade" id="v-pills-chart" role="tabpanel" aria-labelledby="v-pills-chart-tab">
-              <div className="chart-container" height="400px"> 
+            <div className="tab-pane fade" id="v-pills-chart" role="tabpanel" aria-labelledby="v-pills-chart-tab">
+              <div className="chart-container" height="600px"> 
                 <canvas id="chart-votes"></canvas>
               </div>
             </div>

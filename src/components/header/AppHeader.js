@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import HeaderLoginBox from './components/HeaderLoginBox';
 import axios from 'axios';
 
 export default class AppHeader extends Component {
@@ -27,12 +26,12 @@ export default class AppHeader extends Component {
             
             
             <div className="collapse navbar-collapse" id="mainNavigation">
-              <nav className="navbar-nav">
+              <nav className="navbar-nav mr mr-md-3">
                 <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
                 {this.state.user && <Menu/>}
+                <Login user={this.state.user}/>
               </nav>
             </div>
-              {this.state.user ? '' : (<Login/>)}
           </nav>
         </div>
       </div>
@@ -44,6 +43,7 @@ export default class AppHeader extends Component {
       .then((res) => {
         if (res.data.user) {
           this.setState({ user: res.data.user }); 
+          window.User = res.data.user;
         }
       })
   }
@@ -53,20 +53,16 @@ export default class AppHeader extends Component {
 
 function Menu(props) {
   return[
-    <Link className="nav-item nav-link" to="/polls">Pools</Link>,
-    <Link className="nav-item nav-link" to="/profile">Profile</Link>
+    <Link className="nav-item nav-link" to="/polls"> New Poll </Link>,
+    <Link className="nav-item nav-link" to="/profile"> My Polls </Link>
   ]
 }
 
 function Login(props) {
-  return(
-    <div className="navbar-nav mr mr-md-3">
-    <li className="nav-item dropdown">
-      <a className="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Login
-      </a>
-      <HeaderLoginBox/>
-    </li>
-    </div>
-  )
+  return props.user 
+        ? [
+            <a className="nav-item nav-link" href="/auth/twitter"> { props.user.displayName } </a>,
+            <a className="nav-item nav-link" href="/auth/twitter"> logout </a>,
+          ] 
+        : (<a className="nav-item nav-link" href="/auth/twitter">Sign in with Twitter</a>)
 }
