@@ -14,6 +14,13 @@ export default class MyChart {
 
     const options ={
       responsive: true,
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero:true
+            }
+        }]
+      }
     };
 
     this.chart = new Chart($canvas, {

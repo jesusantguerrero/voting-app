@@ -5,14 +5,16 @@ router.post('/create', (req, res, next) => {
   const id = (req.user) ? req.user.id : 0;
   const data = JSON.parse(req.body.data);
 
-  const p = {
+  const newPoll = {
     userId: id,
     title: data.title,
-    options: data.options.split(','),
+    options: data.options.split(',').map((item) => item.trim()), 
     votes: [],
+    userName: req.user.displayName,
+    photo: req.user.photos[0].value
   }
 
-  Poll.create(p)
+  Poll.create(newPoll)
     .then((poll) => {
       if (poll)
         res.json({result: 200, poll})
@@ -22,11 +24,13 @@ router.post('/create', (req, res, next) => {
     });
 });
 
+
 router.get('/', (req, res) => {
-  Poll.find().then((polls) => {
+  Poll.find().sort( { date: 1} ).then((polls) => {
     res.json(polls);
   });
 })
+
 
 router.get('/:id', (req, res) => {
   Poll.findOne({_id: req.params.id}).then((polls) => {
@@ -35,12 +39,14 @@ router.get('/:id', (req, res) => {
 
 })
 
+
 router.get('/user/:id', (req, res) => {
   Poll.find({userId: req.params.id}).then((polls) => {
     res.json(polls);
   });
 
 })
+
 
 router.put('/update/:id', (req, res) => {
   const p = {
@@ -57,6 +63,7 @@ router.put('/update/:id', (req, res) => {
       res.json({result: 500, err})
     });
 });
+
 
 router.delete('/delete/:id', (req, res) => {
   Poll.findByIdAndRemove({ _id: req.params.id }).then((poll) => {

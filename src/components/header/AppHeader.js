@@ -61,8 +61,8 @@ function Menu(props) {
 function Login(props) {
   return props.user 
         ? [
-            <a className="nav-item nav-link" href="/auth/twitter"> { props.user.displayName } </a>,
-            <a className="nav-item nav-link" href="/auth/twitter"> logout </a>,
+            <Link className="nav-item nav-link" to="/profile"> { props.user.displayName } </Link>,
+            <a className="nav-item nav-link" href="/auth/logout"> logout </a>,
           ] 
         : (<a className="nav-item nav-link" href="/auth/twitter">Sign in with Twitter</a>)
 }

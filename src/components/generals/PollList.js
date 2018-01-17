@@ -14,11 +14,11 @@ export default class PollList extends Component {
   }
   
   renderItem(item) {
-    return <div className="card w-90 text-white bg-dark" key={item._id}>
+    return <div className="card w-90 outline-dark" key={item._id}>
         <div className="card-body">
           <h5 className="card-title">{ item.title }</h5>
-          <p className="card-text">{ item.options.join(',') }</p>
-          <Link  className="btn btn-primary" to={`/poll/${item._id}`}> Vote </Link>
+          <p className="card-text"> by: {item.userName} -- Votes: { item.votes.length }</p>
+          <Link  className="btn btn-primary" to={`/poll/${item._id}`}> See Poll </Link>
           {this.props.owner && (
             <button className="btn btn-danger" onClick={this.delete.bind(this)} name={item._id}> delete </button>
           )}
@@ -29,6 +29,16 @@ export default class PollList extends Component {
   renderList(props) {
     const list = this.props.polls.map(item => this.renderItem(item));
     return (<div>{list}</div>);
+  }
+
+  deleteConfirmation(e) {
+    e.target.classList.add('to-delete');
+
+    if (window.confirm('Are you sure?')) {
+      this.delete(e)
+    }
+    
+    e.target.classList.remove('to-delete');
   }
 
   delete(e) {

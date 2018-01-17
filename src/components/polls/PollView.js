@@ -21,7 +21,7 @@ export default class PollView extends Component {
   render() {
     return(
       <div className="row justify-content-center flex-direction-colums">
-        <div>
+        <div className="col-8">
           <h2 className="section-title"> { this.state.poll.title ? this.state.poll.title : 'loading ...' }</h2>
           <div class="nav flex-row nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-vote-tab" data-toggle="pill" href="#v-pills-vote" role="tab" aria-controls="v-pills-vote" aria-selected="true"> Vote </a>
@@ -103,11 +103,20 @@ export default class PollView extends Component {
       }
     });
 
+    
     // populatig the data
     labels.forEach((option) => {
       values.push(votes[option])
     });
 
+    // setting the 0 votes options
+    poll.options.forEach((option) => {
+      if (!labels.includes(option)) {
+        values.push(0)
+        labels.push(option)
+      }
+    })
+    
     if (!this.state.ran) {
       const chartVotes = new MyChart(document.querySelector('#chart-votes'), labels, values, { type: 'bar' });
       this.setState({ ran: true , chartVotes: chartVotes });

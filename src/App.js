@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import './App.css';
+import './assets/css/App.css';
 import AppHeader from './components/header/AppHeader';
 import HomeSection from './components/home/HomeSection';
 import PollSection from './components/polls/PollSection';

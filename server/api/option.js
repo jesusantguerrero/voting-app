@@ -13,7 +13,7 @@ router.post('/:poll_id', (req, res) => {
 
 
 router.delete('/:poll_id', (req, res) => {
-
+//   
 });
 
 module.exports = router
