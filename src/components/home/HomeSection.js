@@ -1,11 +1,26 @@
 import React from 'react';
-import PoolList from './../generals/PoolList';
+import PollList from './../generals/PollList';
+import axios from 'axios';
 
 export default class HomeSection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      polls: []
+    }
+  }
+
+  componentDidMount(){
+    axios.get('/api/poll/')
+      .then((res) => {
+        this.setState({ polls: res.data })
+      })
+  }
+
   render() {
     return(
       <div className="row justify-content-center">
-      <PoolList pools={[1, 2, 3]}/>
+      <PollList polls={this.state.polls}/>
     </div>
     )
   }

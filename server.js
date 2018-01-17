@@ -20,7 +20,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/build/index.html`)
+  res.sendFile(`${__dirname}/build/index.html`);
+})
+
+app.get('/poll/*', (req, res) => {
+  res.redirect('/');
 })
 
 //  authentication related

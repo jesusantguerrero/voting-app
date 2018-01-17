@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HeaderLoginBox from './components/HeaderLoginBox';
 import axios from 'axios';
 
@@ -53,7 +53,7 @@ export default class AppHeader extends Component {
 
 function Menu(props) {
   return[
-    <Link className="nav-item nav-link" to="/pools">Pools</Link>,
+    <Link className="nav-item nav-link" to="/polls">Pools</Link>,
     <Link className="nav-item nav-link" to="/profile">Profile</Link>
   ]
 }

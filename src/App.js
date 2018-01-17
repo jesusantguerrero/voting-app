@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
 import AppHeader from './components/header/AppHeader';
-import PoolList from './components/generals/PoolList';
 import HomeSection from './components/home/HomeSection';
-import PoolSection from './components/pools/PoolSection';
+import PollSection from './components/pools/PollSection';
+import PollView from './components/pools/PollView';
 
 class App extends Component {
   render() {
@@ -16,8 +16,8 @@ class App extends Component {
         </header>
 
         <Route exact path="/" component={HomeSection}/>
-        <Route path="/pools" component={PoolSection}/>
-        <Route path="/pools:id" component={PoolSection}/>
+        <Route path="/polls" component={PollSection}/>
+        <Route path="/poll/:id" component={PollView}/>
       </div>
     );
   }

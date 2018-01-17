@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class PoolSection extends Component {
+export default class PollSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      options: ''
+      options: '',
+      created: false
     }
   }
 
@@ -25,6 +26,7 @@ export default class PoolSection extends Component {
           </div>
           <button className="btn btn-dark" onClick={this.save.bind(this)}> Save</button>
         </form>
+        { this.state.created && <PollCreatedView poll={this.state.poll}></PollCreatedView>}
       </div>
     )
   }
@@ -33,9 +35,13 @@ export default class PoolSection extends Component {
     e.preventDefault();
     const { title, options } = this.state;
     if (title && options) {
-      axios.post('/api/poll/create', this.state)
+      axios.post('/api/poll/create', { title, options }, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+      })
         .then((res) => {
           alert('saved');
+          this.setState({ created: true })
+          this.setState({ poll: res.data})
         })
         .catch((res) => {
           alert('not saved');
@@ -47,4 +53,14 @@ export default class PoolSection extends Component {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
   }
+}
+
+function PollCreatedView(props) {
+  const theLink = `${window.location.origin}/poll/${this.props.poll._id}`;
+  return(
+    <div>
+      <h2>Congratulations, your poll is live</h2>
+      <a href={theLink}>{theLink}</a>
+    </div>
+  )
 }

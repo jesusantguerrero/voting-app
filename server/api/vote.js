@@ -5,7 +5,7 @@ const Poll = require('./../models/Poll');
 router.post('/:poll_id', (req, res) => {
   const ip = req.ips[0];
   const pollId = req.params.poll_id;
-
+  console.log(req.body)
   Poll.findById({_id: pollId})
     .then((poll) => {
      const votes =  poll.votes.slice()
@@ -13,8 +13,6 @@ router.post('/:poll_id', (req, res) => {
       
       addVote(pollId, votes)
         .then((poll) => {
-          console.log(votes)
-
           res.json(poll);
         })
     })
