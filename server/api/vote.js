@@ -5,11 +5,12 @@ const Poll = require('./../models/Poll');
 router.post('/:poll_id', (req, res) => {
   const ip = req.ips[0];
   const pollId = req.params.poll_id;
-  console.log(req.body)
+  const data = JSON.parse(req.body.data)
+
   Poll.findById({_id: pollId})
     .then((poll) => {
-     const votes =  poll.votes.slice()
-     votes.push({ ip: ip, option: req.body.option })
+      const votes =  poll.votes.slice()
+      votes.push({ ip: ip, option: data.option })
       
       addVote(pollId, votes)
         .then((poll) => {

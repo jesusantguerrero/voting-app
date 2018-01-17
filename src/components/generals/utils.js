@@ -1,5 +1,5 @@
 export default {
-  setForm(object) {
+  setAxiosData(object) {
     return `data=${JSON.stringify(object)}` ;
   }
 }

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import utils from './../generals/utils';
+import MyChart from '../generals/MyChart';
 
 export default class PollView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       poll: {},
-      option: 'selecciona'
+      option: 'selecciona',
+      ran: false,
+      chartVotes: null
     };
   }
 
@@ -37,7 +41,11 @@ export default class PollView extends Component {
 
             <button className="btn btn-primary" onClick={this.vote.bind(this)}> Vote </button>
             </div>
-            <div class="tab-pane fade" id="v-pills-chart" role="tabpanel" aria-labelledby="v-pills-chart-tab">...</div>
+            <div class="tab-pane fade" id="v-pills-chart" role="tabpanel" aria-labelledby="v-pills-chart-tab">
+              <div className="chart-container" height="400px"> 
+                <canvas id="chart-votes"></canvas>
+              </div>
+            </div>
             <div class="tab-pane fade" id="v-pills-author" role="tabpanel" aria-labelledby="v-pills-author-tab">...</div>
           </div>  
 
@@ -50,9 +58,10 @@ export default class PollView extends Component {
   vote(e) {
     e.preventDefault();
     const { title, options } = this.state.poll;
+    const data = utils.setAxiosData({ option: this.state.option})
 
     if (title && options) {
-      axios.post(`/api/vote/${this.state.poll._id}`, { option: this.state.option })
+      axios.post(`/api/vote/${this.state.poll._id}`, data)
         .then((res) => {
           alert('saved');
           this.getPoll();
@@ -67,13 +76,45 @@ export default class PollView extends Component {
     const { id } = this.props.match.params; 
     axios.get(`/api/poll/${id}`)
       .then((res) => {
-        this.setState({ poll: res.data })
+        this.setState({ poll: res.data });
+        this.setState({ option: res.data.options[0] });
+        this.results();
       })
   }
 
   handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
+  }
+
+  results() {
+    const { poll } = this.state;
+    const votes = {};
+    const labels = [];
+    const values = [];
+
+    // counting the votes
+    poll.votes.forEach((item) => {
+      if (votes[item.option]) {
+        votes[item.option] += 1;
+      } else {
+        votes[item.option] = 1;
+        labels.push(item.option);
+      }
+    });
+
+    // populatig the data
+    labels.forEach((option) => {
+      values.push(votes[option])
+    });
+
+    if (!this.state.ran) {
+      const chartVotes = new MyChart(document.querySelector('#chart-votes'), labels, values, { type: 'bar' });
+      this.setState({ ran: true , chartVotes: chartVotes });
+    } else {
+      this.state.chartVotes.update(labels, values);
+    }
+
   }
 }
 
