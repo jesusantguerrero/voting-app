@@ -7,18 +7,20 @@ const User = require('./server/models/User');
 const db = require('./server/models/db');
 const passport = require('./server/passportProviders');
 
+// routes objects
 const Poll = require('./server/api/poll');
 const Vote = require('./server/api/vote');
+const Option = require('./server/api/option');
 
-
+//  settings
 app.use(express.static("build"));
 app.use(require('cookie-parser')());
 app.use(session({ secret: 'voting-app', resave: true, saveUninitialized: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
+//  main routes
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/build/index.html`);
 })
@@ -43,9 +45,10 @@ app.get('/current', (req, res) => {
   res.json({ user: req.user });
 })
 
-//  routes
+//  routing to the route objects
 app.use('/api/poll', Poll);
 app.use('/api/vote', Vote);
+app.use('/api/option', Option);
 
 
 const listen = app.listen(process.env.PORT || 80 , () => {

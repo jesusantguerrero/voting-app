@@ -4,14 +4,24 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+:root{
+  --primary-color: #084177;
+}
 
-.container-fluid {
-  padding: 0;
+.navbar-dark {
+  border-bottom: 1px solid white;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('./../img/background.jpg');
 }
 
 .section-title {
   margin: 10px 0 50px 0;
-  color: var(--primary);
+  color: var(--primary-color);
   font-weight: bolder
 }
 
@@ -21,4 +31,28 @@
 
 #mainNavigation nav{
   margin-left: auto;
+}
+
+.bg-dark {
+  background: linear-gradient(143deg, #084177, rgb(49, 63, 172))
+}
+
+.bg-transparent{
+  background: linear-gradient(143deg, #084177, rgb(130, 142, 232))
+}
+
+.btn-primary {
+  background: linear-gradient(143deg, #084177, rgb(130, 142, 232));
+  border-radius: 10px;
+  transition: all .5s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(143deg, #095dac, rgb(103, 159, 243));
+  border-radius: 10px
+}
+
+.btn-danger {
+  background: linear-gradient(143deg, #77081c, rgb(218, 5, 26));
+  border-radius: 10px
 }

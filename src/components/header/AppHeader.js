@@ -1,54 +1,25 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { router,  Link } from 'react-router-dom';
 
 export default class AppHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null
-    }
-  }
-
-  componentDidMount(){
-    this.getCurrentUser()
-  }
-
   render() {
     return(
-      <div className="row">
-        <div className="col-12">
-          <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <a className="navbar-brand" href="/">Voting App</a>
-            
-            
-            <div className="collapse navbar-collapse" id="mainNavigation">
-              <nav className="navbar-nav mr mr-md-3">
-                <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
-                {this.state.user && <Menu/>}
-                <Login user={this.state.user}/>
-              </nav>
-            </div>
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <a className="navbar-brand" href="/">Voting App</a>
+        
+        <div className="collapse navbar-collapse" id="mainNavigation">
+          <nav className="navbar-nav mr mr-md-3">
+            <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
+            {this.props.user && <Menu/>}
+            <Login user={this.props.user}/>
           </nav>
         </div>
-      </div>
+      </nav>
     )
   }
-
-  getCurrentUser() {
-    axios.get('/current')
-      .then((res) => {
-        if (res.data.user) {
-          this.setState({ user: res.data.user }); 
-          window.User = res.data.user;
-        }
-      })
-  }
-
-  
 }
 
 function Menu(props) {
