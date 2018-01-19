@@ -18,7 +18,7 @@ router.post('/:poll_id', (req, res) => {
         })
     })
 
-});
+})
 
 function addVote(id, votes) {
   return Poll.findOneAndUpdate({ _id: id}, { votes: votes })

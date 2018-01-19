@@ -64,7 +64,6 @@ router.put('/update/:id', (req, res) => {
     });
 });
 
-
 router.delete('/delete/:id', (req, res) => {
   Poll.findByIdAndRemove({ _id: req.params.id }).then((poll) => {
     res.json(poll)

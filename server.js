@@ -10,7 +10,7 @@ const passport = require('./server/passportProviders');
 // routes objects
 const Poll = require('./server/api/poll');
 const Vote = require('./server/api/vote');
-const Option = require('./server/api/option');
+const Options = require('./server/api/option');
 
 //  settings
 app.use(express.static("build"));
@@ -39,7 +39,11 @@ app.get('/auth/twitter/callback',
     successRedirect: '/',
     failureRedirect: '/'
   }
-));
+))
+
+app.get('/auth/logout',(req, res) => {
+  req.logout()
+})
 
 app.get('/current', (req, res) => {
   res.json({ user: req.user });
@@ -48,7 +52,7 @@ app.get('/current', (req, res) => {
 //  routing to the route objects
 app.use('/api/poll', Poll);
 app.use('/api/vote', Vote);
-app.use('/api/option', Option);
+app.use('/api/option', Options);
 
 
 const listen = app.listen(process.env.PORT || 80 , () => {

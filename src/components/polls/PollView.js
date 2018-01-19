@@ -9,9 +9,10 @@ export default class PollView extends Component {
     this.state = {
       poll: {},
       option: 'selecciona',
+      newOption: '',
       ran: false,
       chartVotes: null,
-      newOption: false
+      newOptionMode: false
     };
   }
 
@@ -34,11 +35,11 @@ export default class PollView extends Component {
               <OptionList options={this.state.poll.options}/>
             </select>
             <div className="append">
-              <button className="btn btn-dark" onClick={this.changeNewOption.bind(this)}> { this.state.newOption ? '-': '+' }</button>
+              <button className="btn btn-dark" onClick={this.changeOptionMode.bind(this)}> { this.state.newOptionMode ? '-': '+' }</button>
             </div>
           </div>
           </div>
-          { this.state.newOption && (<ButtonAddOption newOption={this.state.option} handleChange={this.handleChange.bind(this)} addOption={this.addOption.bind(this)}/>) }
+          { this.state.newOptionMode && (<ButtonAddOption newOption={this.state.newOption} handleChange={this.handleChange.bind(this)} addOption={this.addOption.bind(this)}/>) }
           <button className="btn btn-primary" onClick={this.vote.bind(this)}> Vote </button>
         </div>
 
@@ -85,22 +86,23 @@ export default class PollView extends Component {
   addOption(e) {
     e.preventDefault();
     const { title, options } = this.state.poll;
-    const data = utils.setAxiosData({ option: this.state.option})
+    const data = utils.setAxiosData({ option: this.state.newOption})
 
     if (title && options) {
       axios.post(`/api/option/${this.state.poll._id}`, data)
         .then((res) => {
-          this.vote();
+          this.setState({ option: this.state.newOption, newOption: '' })
           this.changeNewOption();
+          this.vote();
         })
-        .catch((res) => {
+        .catch((err) => {
           alert('not saved');
         });
     }
   }
 
-  changeNewOption() {
-    this.setState({ newOption: !this.state.newOption});
+  changeOptionMode() {
+    this.setState({ newOptionMode: !this.state.newOptionMode });
   }
 
   results() {
@@ -157,7 +159,7 @@ function ButtonAddOption(props){
     <div className="form-group">
       <label> Add a new option</label>
       <div className="input-group">
-      <input className="form-control" value={props.newOption} name="option" onChange={props.handleChange}/>
+      <input className="form-control" value={props.newOption} name="newOption" onChange={props.handleChange}/>
       <div className="append">
         <button className="btn btn-primary" onClick={props.addOption}> vote </button>
       </div>
