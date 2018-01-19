@@ -20,7 +20,7 @@ export default class PollList extends Component {
         <p className="card-text"> by: {item.userName} -- Votes: { item.votes.length }</p>
           <Link  className="btn btn-primary" to={`/poll/${item._id}`}> See Poll </Link>
           {this.props.owner && (
-            <button className="btn btn-danger" onClick={this.delete.bind(this)} name={item._id}> delete </button>
+            <button className="btn btn-danger" onClick={this.deleteConfirmation.bind(this)} name={item._id}> delete </button>
           )}
         </div>
       </div>
@@ -33,8 +33,8 @@ export default class PollList extends Component {
 
   deleteConfirmation(e) {
     e.target.classList.add('to-delete');
-
-    if (window.confirm('Are you sure?')) {
+    const result = window.confirm('Are you sure?');
+    if (result) {
       this.delete(e)
     }
     

@@ -30,11 +30,9 @@ app.get('/p*', (req, res) => {
 })
 
 //  authentication related
-app.get('/auth/twitter',
- passport.authenticate('twitter'));
+app.get('/auth/twitter', passport.authenticate('twitter'));
 
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter',
+app.get('/auth/twitter/callback', passport.authenticate('twitter',
   { 
     successRedirect: '/',
     failureRedirect: '/'
@@ -42,7 +40,8 @@ app.get('/auth/twitter/callback',
 ))
 
 app.get('/auth/logout',(req, res) => {
-  req.logout()
+  req.logout();
+  res.redirect('/');
 })
 
 app.get('/current', (req, res) => {

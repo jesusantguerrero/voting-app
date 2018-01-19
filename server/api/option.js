@@ -7,9 +7,11 @@ router.post('/:poll_id', (req, res) => {
 
   Poll.findOne({ _id: pollId})
     .then((poll) => {
-      poll.options.push(data.option)
-      Poll.findOneAndUpdate({ _id: pollId}, { options: poll.options })
-      res.json({ok: 'ok'})
+      const options = poll.options;
+      options.push(data.option);
+
+      Poll.findOneAndUpdate({ _id: pollId}, { options: options })
+      res.json(options)
     }).catch((err) => { res.end({ err : err.toString()}); })
 })
 

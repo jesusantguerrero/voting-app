@@ -41,18 +41,36 @@ header {
   background: linear-gradient(143deg, #084177, rgb(130, 142, 232))
 }
 
-.btn-primary {
-  background: linear-gradient(143deg, #084177, rgb(130, 142, 232));
+.btn {
   border-radius: 10px;
   transition: all .5s ease;
 }
 
+.btn-primary {
+  background: linear-gradient(143deg, #084177, rgb(130, 142, 232));
+}
+
+
 .btn-primary:hover {
   background: linear-gradient(143deg, #095dac, rgb(103, 159, 243));
-  border-radius: 10px
 }
 
 .btn-danger {
   background: linear-gradient(143deg, #77081c, rgb(218, 5, 26));
-  border-radius: 10px
+}
+
+.card .btn:last-child {
+  margin-left: 15px
+}
+
+.append .btn {
+  border-radius: 0 0 0 0;
+}
+
+.card {
+  transition: all ease .3s
+}
+
+.to-delete {
+  opacity: 4;
 }

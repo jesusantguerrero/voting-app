@@ -40,7 +40,7 @@ export default class PollView extends Component {
           </div>
           </div>
           { this.state.newOptionMode && (<ButtonAddOption newOption={this.state.newOption} handleChange={this.handleChange.bind(this)} addOption={this.addOption.bind(this)}/>) }
-          <button className="btn btn-primary" onClick={this.vote.bind(this)}> Vote </button>
+          { !this.state.newOptionMode && (<button className="btn btn-primary" onClick={this.vote.bind(this)}> Vote </button>)}
         </div>
 
         <div className="col-md-4">
@@ -68,7 +68,6 @@ export default class PollView extends Component {
   }
 
   vote(e) {
-    e.preventDefault();
     const { title, options } = this.state.poll;
     const data = utils.setAxiosData({ option: this.state.option})
 
@@ -92,11 +91,11 @@ export default class PollView extends Component {
       axios.post(`/api/option/${this.state.poll._id}`, data)
         .then((res) => {
           this.setState({ option: this.state.newOption, newOption: '' })
-          this.changeNewOption();
-          this.vote();
+          this.changeOptionMode();
+          this.vote(e);
         })
         .catch((err) => {
-          alert('not saved');
+          alert(err.toString())
         });
     }
   }
