@@ -36,6 +36,7 @@ class App extends Component {
           <PrivateRoute path="/polls" component={PollSection} user={this.state.user}/>
           <PrivateRoute path="/profile" component={PollUser} user={this.state.user}/>
         </div>
+        <footer>Made with code, music and love by <a href="https:jesusantguerrero.com">@JesusntGuerrero</a></footer>
       </div>
     );
   }

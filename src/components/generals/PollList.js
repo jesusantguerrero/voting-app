@@ -13,7 +13,7 @@ export default class PollList extends Component {
     )
   }
   
-  renderItem(item) {
+  renderItem(item, empty) {
     return <div className="card w-90 outline-dark" key={item._id}>
         <div className="card-body">
         <h5 className="card-title">{ item.title }</h5>
@@ -28,7 +28,10 @@ export default class PollList extends Component {
 
   renderList(props) {
     const list = this.props.polls.map(item => this.renderItem(item));
-    return (<div>{list}</div>);
+    if (list.length > 0) {
+      return (<div>{list}</div>);
+    }
+    return (<div className="card w-90 outline-dark"> Nothing to show yet</div>);
   }
 
   deleteConfirmation(e) {
