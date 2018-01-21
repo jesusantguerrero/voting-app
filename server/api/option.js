@@ -10,8 +10,10 @@ router.post('/:poll_id', (req, res) => {
       const options = poll.options;
       options.push(data.option);
 
-      Poll.findOneAndUpdate({ _id: pollId}, { options: options })
-      res.json(options)
+      Poll.findOneAndUpdate({ _id: pollId }, { options: options }).then((poll) => {
+        res.json(poll)
+      })
+
     }).catch((err) => { res.end({ err : err.toString()}); })
 })
 

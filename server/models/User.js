@@ -13,16 +13,20 @@ class User {
     }));
   }
 
-  create(user) {
-    return this.model.create(user).then((user) => user);
+  create(newUser) {
+    return this.model.create(user).then((user) => {
+      return user;
+      
+    })
   }
 
   findOrCreate(user) {
-    const foundUser = this.model.find({ id : user.id });
-    if (foundUser) {
-      return foundUser
-    }
-    return this.create(user);
+    return this.model.findOne({ id : user.id }).then((foundUser) => {
+      if (foundUser) {
+        return foundUser
+      }
+      return this.create(user);
+    })
   }
 }
 

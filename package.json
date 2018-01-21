@@ -25,10 +25,13 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "serve": "node_modules/.bin/serve -s build",
-    "heroku-postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "heroku-push": "git push heroku heroku:master && heroku scale web=1",
+    "heroku-commit": "git commit -am \" build for heroku on %date% || %time% \"",
+    "build-push": "npm run heroku-commit && npm run heroku-push",
+    "heroku": "git push heroku heroku:master && heroku scale web=1 && heroku open && heroku logs --tail"
   },
   "devDependencies": {
     "dotenv": "^4.0.0"
-  },
-  "proxy": "http://localhost:80/"
+  }
 }

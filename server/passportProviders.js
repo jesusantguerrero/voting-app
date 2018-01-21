@@ -10,14 +10,12 @@ passport.use(new TwitterStrategy({
   },
 
   (token, tokenSecret, profile, done) => {
-    User.findOrCreate(profile)
-      .then((res) => {
-        // 
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    return done(null, profile);
+    User.findOrCreate(profile).then((user) => {
+      return done(null, profile);
+    }).catch((err) => {
+      return done(null, profile)
+    })
+    return done(null, profile)
   }
 ))
 

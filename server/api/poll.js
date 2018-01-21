@@ -26,9 +26,14 @@ router.post('/create', (req, res, next) => {
 
 
 router.get('/', (req, res) => {
-  Poll.find().sort( { date: 1} ).then((polls) => {
-    res.json(polls);
-  });
+  try{
+    Poll.find().then((polls) => {
+      res.json(polls);
+    });
+  } catch(e) {
+    console.log('this is the error %s', e);
+    res.end('error');
+  }
 })
 
 

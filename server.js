@@ -3,8 +3,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const session = require('express-session');
 require('dotenv').config();
-const User = require('./server/models/User');
 const db = require('./server/models/db');
+const User = require('./server/models/User');
 const passport = require('./server/passportProviders');
 
 // routes objects
